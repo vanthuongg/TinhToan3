@@ -32,12 +32,29 @@ namespace Buoi07_TinhToan3
                 this.Close();
         }
 
+        private double ParseSqrtOrNumber(string input)
+        {
+            string s = (input ?? string.Empty).Trim();
+            if (s.StartsWith("sqrt", StringComparison.OrdinalIgnoreCase))
+            {
+                int lp = s.IndexOf('(');
+                int rp = s.LastIndexOf(')');
+                if (lp > -1 && rp > lp)
+                {
+                    string inner = s.Substring(lp + 1, rp - lp - 1);
+                    double v = ParseSqrtOrNumber(inner);
+                    return v < 0 ? double.NaN : Math.Sqrt(v);
+                }
+            }
+            return double.Parse(s);
+        }
+
         private void btnTinh_Click(object sender, EventArgs e)
         {
             //lấy giá trị của 2 ô số
             double so1, so2, kq = 0;
-            so1 = double.Parse(txtSo1.Text);
-            so2 = double.Parse(txtSo2.Text);
+            so1 = ParseSqrtOrNumber(txtSo1.Text);
+            so2 = ParseSqrtOrNumber(txtSo2.Text);
             //Thực hiện phép tính dựa vào phép toán được chọn
             if (radCong.Checked) kq = so1 + so2;
             else if (radTru.Checked) kq = so1 - so2;
