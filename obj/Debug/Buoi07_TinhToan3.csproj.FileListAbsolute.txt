@@ -16,3 +16,13 @@ F:\18-19 HKII\18610SP\Kiem thu PM\Bai tap\BT4b\Buoi07_TinhToan3\obj\Debug\Buoi07
 F:\18-19 HKII\18610SP\Kiem thu PM\Bai tap\BT4b\Buoi07_TinhToan3\obj\Debug\Buoi07_TinhToan3.Form1.resources
 F:\18-19 HKII\18610SP\Kiem thu PM\Bai tap\BT4b\Buoi07_TinhToan3\obj\Debug\Buoi07_TinhToan3.Properties.Resources.resources
 F:\18-19 HKII\18610SP\Kiem thu PM\Bai tap\BT4b\Buoi07_TinhToan3\obj\Debug\Buoi07_TinhToan3.csproj.GenerateResource.Cache
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\bin\Debug\Buoi07_TinhToan3.exe.config
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\bin\Debug\Buoi07_TinhToan3.exe
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\bin\Debug\Buoi07_TinhToan3.pdb
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.csproj.AssemblyReference.cache
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.Form1.resources
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.Properties.Resources.resources
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.csproj.GenerateResource.cache
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.csproj.CoreCompileInputs.cache
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.exe
+D:\UTE_CNTT_24_25\KTPM\TinhToan3\obj\Debug\Buoi07_TinhToan3.pdb
