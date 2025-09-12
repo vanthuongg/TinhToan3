@@ -39,7 +39,7 @@ namespace Buoi07_TinhToan3
 
             if (string.IsNullOrWhiteSpace(input1) || string.IsNullOrWhiteSpace(input2))
             {
-                MessageBox.Show("Vui lòng nhập đủ 2 số hoặc biểu thức!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập đủ 2 số !", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             //lấy giá trị của 2 ô số
@@ -95,27 +95,6 @@ namespace Buoi07_TinhToan3
             else
             {
                 errorProvider.SetError(txtSo2, ""); // Xóa lỗi nếu nhập đúng
-            }
-        }
-
-        private void txtSo1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Cho phép: số, toán tử + - * / ^ ( ), dấu chấm, và phím điều khiển (Backspace, Delete…)
-            if (!char.IsControl(e.KeyChar) &&
-                !char.IsDigit(e.KeyChar) &&
-                "+-*/^().".IndexOf(e.KeyChar) == -1)
-            {
-                e.Handled = true; // chặn nhập ký tự lạ
-            }
-        }
-
-        private void txtSo2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) &&
-            !char.IsDigit(e.KeyChar) &&
-            "+-*/^().".IndexOf(e.KeyChar) == -1)
-            {
-                e.Handled = true;
             }
         }
     }
