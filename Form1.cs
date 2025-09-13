@@ -103,7 +103,6 @@ namespace Buoi07_TinhToan3
             }
             return double.Parse(s);
         }
-
         private void btnTinh_Click(object sender, EventArgs e)
         {
             string input1 = txtSo1.Text.Trim();
@@ -115,24 +114,89 @@ namespace Buoi07_TinhToan3
                 return;
             }
             //lấy giá trị của 2 ô số
-            //double so1, so2, kq = 0;
-            decimal so1, so2, kq = 0;
+            double so1, so2, kq = 0;
+            //decimal so1, so2, kq = 0;
             // so1 = ParseSqrtOrNumber(txtSo1.Text);
             //so2 = ParseSqrtOrNumber(txtSo2.Text);
-
-            if (!decimal.TryParse(input1, out so1))
+            try
             {
-                MessageBox.Show("Số thứ nhất không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSo1.Focus();
+                // --- Xử lý input1 ---
+                string s1 = input1;
+                if (s1.StartsWith("sqrt", StringComparison.OrdinalIgnoreCase))
+                {
+                    int lp = s1.IndexOf('(');
+                    int rp = s1.LastIndexOf(')');
+                    if (lp > -1 && rp > lp)
+                    {
+                        string inner = s1.Substring(lp + 1, rp - lp - 1);
+                        double v = double.Parse(inner);   // chỉ cho phép sqrt(số)
+                        so1 = Math.Sqrt(v);
+                    }
+                    else
+                    {
+                        throw new FormatException("Cú pháp sqrt(...) không hợp lệ cho số thứ nhất!");
+                    }
+                }
+                else if (s1.Contains("^"))
+                {
+                    string[] parts = s1.Split('^');
+                    if (parts.Length == 2 &&
+                        double.TryParse(parts[0], out double baseNum) &&
+                        double.TryParse(parts[1], out double exponent))
+                    {
+                        so1 = Math.Pow(baseNum, exponent);
+                    }
+                    else
+                    {
+                        throw new FormatException("Cú pháp a^b không hợp lệ cho số thứ nhất!");
+                    }
+                }
+                else
+                {
+                    so1 = double.Parse(s1);
+                }
+
+                // --- Xử lý input2 ---
+                string s2 = input2;
+                if (s2.StartsWith("sqrt", StringComparison.OrdinalIgnoreCase))
+                {
+                    int lp = s2.IndexOf('(');
+                    int rp = s2.LastIndexOf(')');
+                    if (lp > -1 && rp > lp)
+                    {
+                        string inner = s2.Substring(lp + 1, rp - lp - 1);
+                        double v = double.Parse(inner);
+                        so2 = Math.Sqrt(v);
+                    }
+                    else
+                    {
+                        throw new FormatException("Cú pháp sqrt(...) không hợp lệ cho số thứ hai!");
+                    }
+                }
+                else if (s2.Contains("^"))
+                {
+                    string[] parts = s2.Split('^');
+                    if (parts.Length == 2 &&
+                        double.TryParse(parts[0], out double baseNum) &&
+                        double.TryParse(parts[1], out double exponent))
+                    {
+                        so2 = Math.Pow(baseNum, exponent);
+                    }
+                    else
+                    {
+                        throw new FormatException("Cú pháp a^b không hợp lệ cho số thứ hai!");
+                    }
+                }
+                else
+                {
+                    so2 = double.Parse(s2);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Dữ liệu nhập không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            if (!decimal.TryParse(input2, out so2))
-            {
-                MessageBox.Show("Số thứ hai không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSo2.Focus();
-                return;
-            }         //Thực hiện phép tính dựa vào phép toán được chọn
             if (radCong.Checked) kq = so1 + so2;
             else if (radTru.Checked) kq = so1 - so2;
             else if (radNhan.Checked) kq = so1 * so2;
@@ -154,15 +218,11 @@ namespace Buoi07_TinhToan3
             txtKq.Text = kq.ToString();
         }
 
-        private void txtSo1_TextChanged(object sender, EventArgs e)
+        private void txtSo1_TextChanged_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSo1.Text))
             {
                 errorProvider.SetError(txtSo1, "Vui lòng nhập số thứ nhất!");
-            }
-            else if (!double.TryParse(txtSo1.Text, out _))
-            {
-                errorProvider.SetError(txtSo1, "Số thứ nhất phải là số thực hợp lệ!");
             }
             else
             {
@@ -170,15 +230,11 @@ namespace Buoi07_TinhToan3
             }
         }
 
-        private void txtSo2_TextChanged(object sender, EventArgs e)
+        private void txtSo2_TextChanged_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSo2.Text))
             {
                 errorProvider.SetError(txtSo2, "Vui lòng nhập số thứ 2!");
-            }
-            else if (!double.TryParse(txtSo2.Text, out _))
-            {
-                errorProvider.SetError(txtSo2, "Số thứ 2 phải là số thực hợp lệ!");
             }
             else
             {
