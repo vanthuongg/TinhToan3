@@ -60,27 +60,41 @@ namespace Buoi07_TinhToan3
                 return;
             }
             //lấy giá trị của 2 ô số
-            double so1, so2, kq = 0;
-            so1 = ParseSqrtOrNumber(txtSo1.Text);
-            so2 = ParseSqrtOrNumber(txtSo2.Text);
+            //double so1, so2, kq = 0;
+            decimal so1, so2, kq = 0;
+            // so1 = ParseSqrtOrNumber(txtSo1.Text);
+            //so2 = ParseSqrtOrNumber(txtSo2.Text);
 
-			if (!double.TryParse(input1, out so1))
+            if (!decimal.TryParse(input1, out so1))
             {
                 MessageBox.Show("Số thứ nhất không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSo1.Focus();
                 return;
             }
 
-            if (!double.TryParse(input2, out so2))
+            if (!decimal.TryParse(input2, out so2))
             {
                 MessageBox.Show("Số thứ hai không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSo2.Focus();
                 return;
-            }            //Thực hiện phép tính dựa vào phép toán được chọn
+            }         //Thực hiện phép tính dựa vào phép toán được chọn
             if (radCong.Checked) kq = so1 + so2;
             else if (radTru.Checked) kq = so1 - so2;
             else if (radNhan.Checked) kq = so1 * so2;
-            else if (radChia.Checked && so2 != 0) kq = so1 / so2;
+            else if (radChia.Checked)
+            {
+                if (so2 == 0)
+                {
+                    MessageBox.Show("Không thể chia cho 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSo2.Focus();
+                    return;
+                }
+                else
+                {
+                    kq = so1 / so2;
+                }
+            }
+
             //Hiển thị kết quả lên trên ô kết quả
             txtKq.Text = kq.ToString();
         }
