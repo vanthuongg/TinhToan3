@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +22,60 @@ namespace Buoi07_TinhToan3
         {
             txtSo1.Text = txtSo2.Text = "0";
             radCong.Checked = true;             //đầu tiên chọn phép cộng
+
+            // Gắn sự kiện xử lý nhập liệu (Phương án 1)
+            txtSo1.Leave += TxtInput_Leave;
+            txtSo2.Leave += TxtInput_Leave;
+        }
+
+        //Xử lý khi nhập liệu
+        private void TxtInput_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            string input = txt.Text.Trim();
+
+            if (input.Contains("^"))
+            {
+                try
+                {
+                    string[] parts = input.Split('^');
+                    if (parts.Length == 2 &&
+                        double.TryParse(parts[0], out double baseNum) &&
+                        double.TryParse(parts[1], out double exponent))
+                    {
+                        double result = Math.Pow(baseNum, exponent);
+                        txt.Text = result.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Dữ liệu nhập không hợp lệ! Vui lòng nhập dạng a^b (ví dụ: 10^2).",
+                                        "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txt.Focus();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Lỗi khi xử lý dữ liệu nhập!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txt.Focus();
+                }
+            }
+        }
+
+        //Xử lý khi tính toán
+        private double ParseInput(string input)
+        {
+            input = input.Trim();
+
+            // Regex dạng cơ số ^ số mũ
+            Match match = Regex.Match(input, @"^\s*([\d\.]+)\s*\^\s*([\d\.]+)\s*$");
+            if (match.Success)
+            {
+                double baseNum = double.Parse(match.Groups[1].Value);
+                double exponent = double.Parse(match.Groups[2].Value);
+                return Math.Pow(baseNum, exponent);
+            }
+
+            return double.Parse(input);
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -36,8 +91,8 @@ namespace Buoi07_TinhToan3
         {
             //lấy giá trị của 2 ô số
             double so1, so2, kq = 0;
-            so1 = double.Parse(txtSo1.Text);
-            so2 = double.Parse(txtSo2.Text);
+            so1 = ParseInput(txtSo1.Text);
+            so2 = ParseInput(txtSo2.Text);
             //Thực hiện phép tính dựa vào phép toán được chọn
             if (radCong.Checked) kq = so1 + so2;
             else if (radTru.Checked) kq = so1 - so2;
